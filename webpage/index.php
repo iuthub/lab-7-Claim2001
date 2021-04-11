@@ -1,5 +1,6 @@
 <?php
 include('connection.php');
+
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -7,20 +8,22 @@ include('connection.php');
 		<title>My Personal Page</title>
 		<link href="style.css" type="text/css" rel="stylesheet" />
 	</head>
-	
+
 	<body>
-		<?php include('header.php'); ?>
+		<?php include('header.php');
+        ?>
 		<!-- Show this part if user is not signed in yet -->
+        <?php if (!isset($_SESSION["user"])){?>
 		<div class="twocols">
 			<form action="index.php" method="post" class="twocols_col">
 				<ul class="form">
 					<li>
 						<label for="username">Username</label>
-						<input type="text" name="username" id="username" />
+						<input type="text" name="username_l" id="username_l" required/>
 					</li>
 					<li>
 						<label for="pwd">Password</label>
-						<input type="password" name="pwd" id="pwd" />
+						<input type="password" name="pwd_l" id="pwd_l" required/>
 					</li>
 					<li>
 						<label for="remember">Remember Me</label>
@@ -36,7 +39,8 @@ include('connection.php');
 				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur libero nostrum consequatur dolor. Nesciunt eos dolorem enim accusantium libero impedit ipsa perspiciatis vel dolore reiciendis ratione quam, non sequi sit! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio nobis vero ullam quae. Repellendus dolores quis tenetur enim distinctio, optio vero, cupiditate commodi eligendi similique laboriosam maxime corporis quasi labore!</p>
 			</div>
 		</div>
-		
+		<?php }
+		elseif (isset($_SESSION["user"])){?>
 		<!-- Show this part after user signed in successfully -->
 		<div class="logout_panel"><a href="register.php">My Profile</a>&nbsp;|&nbsp;<a href="index.php?logout=1">Log Out</a></div>
 		<h2>New Post</h2>
@@ -44,17 +48,18 @@ include('connection.php');
 			<ul class="form">
 				<li>
 					<label for="title">Title</label>
-					<input type="text" name="title" id="title" />
+					<input type="text" name="title" id="title" required/>
 				</li>
 				<li>
 					<label for="body">Body</label>
-					<textarea name="body" id="body" cols="30" rows="10"></textarea>
+					<textarea name="body" id="body" cols="30" rows="10" required></textarea>
 				</li>
 				<li>
 					<input type="submit" value="Post" />
 				</li>
 			</ul>
 		</form>
+        <?php }?>
 		<div class="onecol">
 			<div class="card">
 				<h2>TITLE HEADING</h2>
